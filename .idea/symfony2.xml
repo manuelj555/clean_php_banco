@@ -2,5 +2,10 @@
 <project version="4">
   <component name="Symfony2PluginSettings">
     <option name="pluginEnabled" value="true" />
+    <option name="methodParameterSettings">
+      <list>
+        <method_parameter_settings CallTo="AppBundle\View\View" contributorName="parameter" MethodName="render" ReferenceProviderName="template" />
+      </list>
+    </option>
   </component>
 </project>

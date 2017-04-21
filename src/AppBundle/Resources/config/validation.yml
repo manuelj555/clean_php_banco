@@ -1,0 +1,10 @@
+Manuel\LocalBank\Application\Service\CreateAccount\CreateAccountRequest:
+    properties:
+        email:
+            - NotBlank: ~
+            - Email: ~
+        address:
+            - NotBlank: ~
+        initialAmount:
+            - NotBlank: ~
+            - Type: {type: numeric}

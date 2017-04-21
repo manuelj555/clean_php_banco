@@ -3,3 +3,7 @@ services:
         public: false
         autowire: true
         class: Manuel\LocalBank\Account\Service\TransferMoney
+
+    Manuel\LocalBank\Application\Service\CreateAccount\CreateAccountService:
+        autowire: true
+        class: Manuel\LocalBank\Application\Service\CreateAccount\CreateAccountService

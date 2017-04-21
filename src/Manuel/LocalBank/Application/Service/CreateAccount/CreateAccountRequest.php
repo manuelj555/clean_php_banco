@@ -9,14 +9,14 @@ namespace Manuel\LocalBank\Application\Service\CreateAccount;
 /**
  * @author maguirre <maguirre@developerplace.com>
  */
-class Request
+class CreateAccountRequest
 {
     public $email;
     public $address;
     public $initialAmount;
 
     /**
-     * Request constructor.
+     * CreateAccountRequest constructor.
      *
      * @param $email
      * @param $address

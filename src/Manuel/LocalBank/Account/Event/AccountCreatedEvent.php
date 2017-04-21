@@ -7,12 +7,12 @@
 namespace Manuel\LocalBank\Account\Event;
 
 use Manuel\LocalBank\Account\Account;
-use Manuel\LocalBank\ValueObject\Money;
+use Manuel\LocalBank\Event\Event;
 
 /**
  * @author maguirre <maguirre@developerplace.com>
  */
-class AccountCreatedEvent
+class AccountCreatedEvent extends Event
 {
     /**
      * @var Account

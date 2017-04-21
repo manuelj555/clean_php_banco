@@ -22,7 +22,7 @@ use Manuel\LocalBank\ValueObject\Money;
 /**
  * @author maguirre <maguirre@developerplace.com>
  */
-class Service
+class CreateAccountService
 {
     /**
      * @var ClientRepository
@@ -39,7 +39,24 @@ class Service
      */
     private $eventHandler;
 
-    public function create(Request $request)
+    /**
+     * CreateAccountService constructor.
+     *
+     * @param ClientRepository $clientRepository
+     * @param AccountRepository $accountRepository
+     * @param EventHandler $eventHandler
+     */
+    public function __construct(
+        ClientRepository $clientRepository,
+        AccountRepository $accountRepository,
+        EventHandler $eventHandler
+    ) {
+        $this->clientRepository = $clientRepository;
+        $this->accountRepository = $accountRepository;
+        $this->eventHandler = $eventHandler;
+    }
+
+    public function create(CreateAccountRequest $request)
     {
         $client = new Client(
             new EntityId(),

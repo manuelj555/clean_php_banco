@@ -4,6 +4,7 @@ Manuel\LocalBank\Account\Client\Client:
     embedded:
         id:
             class: Manuel\LocalBank\ValueObject\EntityId
+            columnPrefix: false
         email:
             class: Manuel\LocalBank\ValueObject\Email
         address:

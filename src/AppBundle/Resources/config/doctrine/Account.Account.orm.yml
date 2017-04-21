@@ -4,6 +4,7 @@ Manuel\LocalBank\Account\Account:
     embedded:
         accountId:
             class: Manuel\LocalBank\ValueObject\EntityId
+            columnPrefix: false
         balance:
             class: Manuel\LocalBank\ValueObject\Money
     fields:
@@ -13,4 +14,5 @@ Manuel\LocalBank\Account\Account:
     manyToOne:
         client:
             targetEntity: Manuel\LocalBank\Account\Client\Client
+            idaa: 1
 
