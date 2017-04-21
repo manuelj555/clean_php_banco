@@ -19,4 +19,9 @@ class ClientRepository extends EntityRepository implements Repository
     {
         $this->_em->persist($client);
     }
+
+    public function save(Client $client)
+    {
+        $this->_em->persist($client);
+    }
 }

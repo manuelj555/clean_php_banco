@@ -12,4 +12,5 @@ namespace Manuel\LocalBank\Account\Client;
 interface ClientRepository
 {
     public function add(Client $client);
+    public function save(Client $client);
 }

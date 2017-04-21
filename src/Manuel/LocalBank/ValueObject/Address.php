@@ -11,5 +11,8 @@ namespace Manuel\LocalBank\ValueObject;
  */
 class Address
 {
-
+    public function equals(Address $address)
+    {
+        return false;
+    }
 }

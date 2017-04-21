@@ -7,3 +7,7 @@ services:
     Manuel\LocalBank\Application\Service\CreateAccount\CreateAccountService:
         autowire: true
         class: Manuel\LocalBank\Application\Service\CreateAccount\CreateAccountService
+
+    Manuel\LocalBank\Application\Service\EditAccount\EditAccountService:
+        autowire: true
+        class: Manuel\LocalBank\Application\Service\EditAccount\EditAccountService

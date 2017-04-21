@@ -6,6 +6,8 @@
 
 namespace Manuel\LocalBank\Account\Client;
 
+use Manuel\LocalBank\Account\Client\Event\ChangedAddressEvent;
+use Manuel\LocalBank\Event\AbstractEvenStore;
 use Manuel\LocalBank\ValueObject\Address;
 use Manuel\LocalBank\ValueObject\Email;
 use Manuel\LocalBank\ValueObject\EntityId;
@@ -13,7 +15,7 @@ use Manuel\LocalBank\ValueObject\EntityId;
 /**
  * @author maguirre <maguirre@developerplace.com>
  */
-class Client
+class Client extends AbstractEvenStore
 {
     /**
      * @var EntityId
@@ -81,6 +83,11 @@ class Client
      */
     public function setAddress(Address $address)
     {
+        $originalAddress = $this->address;
         $this->address = $address;
+
+        if ($originalAddress and !$originalAddress->equals($address)) {
+            $this->pushEvent(new ChangedAddressEvent($this, $originalAddress));
+        }
     }
 }
