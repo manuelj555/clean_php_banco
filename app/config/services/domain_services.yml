@@ -1,0 +1,5 @@
+services:
+    Manuel\LocalBank\Account\Service\TransferMoney:
+        public: false
+        autowire: true
+        class: Manuel\LocalBank\Account\Service\TransferMoney

@@ -1,0 +1,20 @@
+services:
+    app.repository.abstract:
+        abstract: true
+        public: false
+        factory: ["@doctrine.orm.entity_manager", "getRepository"]
+
+    app.repository.account:
+        class: AppBundle\Repository\AccountRepository
+        parent: app.repository.abstract
+        arguments: [Manuel\LocalBank\Account\Account]
+
+    app.repository.client:
+        class: AppBundle\Repository\ClientRepository
+        parent: app.repository.abstract
+        arguments: [Manuel\LocalBank\Account\Client\Client]
+
+    app.repository.transaction:
+        class: AppBundle\Repository\TransactionRepository
+        parent: app.repository.abstract
+        arguments: [Manuel\LocalBank\Account\Operation\Transaction]
