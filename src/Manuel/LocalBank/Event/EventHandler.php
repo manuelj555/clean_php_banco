@@ -11,7 +11,12 @@ namespace Manuel\LocalBank\Event;
  */
 abstract class EventHandler
 {
-    abstract public function dispatch(Event $event);
+    public function dispatch(Event $event)
+    {
+        $this->doDispatch($event);
+
+        $event->commit();
+    }
 
     public function commitEvents(EventStore $object)
     {
@@ -19,4 +24,6 @@ abstract class EventHandler
             $this->dispatch($event);
         }
     }
+
+    abstract protected function doDispatch(Event $event);
 }

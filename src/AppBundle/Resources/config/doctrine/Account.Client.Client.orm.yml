@@ -1,5 +1,6 @@
 Manuel\LocalBank\Account\Client\Client:
     type: entity
+    repositoryClass: AppBundle\Repository\ClientRepository
     embedded:
         id:
             class: Manuel\LocalBank\ValueObject\EntityId
