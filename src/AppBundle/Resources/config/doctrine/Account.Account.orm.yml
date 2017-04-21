@@ -1,0 +1,15 @@
+Manuel\LocalBank\Account\Account:
+    type: entity
+    embedded:
+        accountId:
+            class: Manuel\LocalBank\ValueObject\EntityId
+        balance:
+            class: Manuel\LocalBank\ValueObject\Money
+    fields:
+        locked:
+            type: boolean
+
+    manyToOne:
+        client:
+            targetEntity: Manuel\LocalBank\Account\Client\Client
+

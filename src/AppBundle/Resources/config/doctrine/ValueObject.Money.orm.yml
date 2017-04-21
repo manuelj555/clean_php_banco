@@ -1,0 +1,9 @@
+Manuel\LocalBank\ValueObject\Money:
+    type: embeddable
+    fields:
+        amount:
+            type: float
+
+    embedded:
+        currency:
+            class: Manuel\LocalBank\ValueObject\Currency

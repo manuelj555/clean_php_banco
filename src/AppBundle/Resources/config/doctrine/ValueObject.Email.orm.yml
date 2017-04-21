@@ -1,0 +1,5 @@
+Manuel\LocalBank\ValueObject\Email:
+    type: embeddable
+    fields:
+        email:
+            type: string

@@ -1,0 +1,2 @@
+Manuel\LocalBank\ValueObject\Address:
+    type: embeddable

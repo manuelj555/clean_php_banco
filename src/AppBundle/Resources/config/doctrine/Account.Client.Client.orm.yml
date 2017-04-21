@@ -1,0 +1,9 @@
+Manuel\LocalBank\Account\Client\Client:
+    type: entity
+    embedded:
+        id:
+            class: Manuel\LocalBank\ValueObject\EntityId
+        email:
+            class: Manuel\LocalBank\ValueObject\Email
+        address:
+            class: Manuel\LocalBank\ValueObject\Address
