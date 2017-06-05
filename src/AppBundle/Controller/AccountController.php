@@ -8,7 +8,9 @@ namespace AppBundle\Controller;
 
 use AppBundle\Form\Type\CreateAccountType;
 use AppBundle\Form\Type\EditAccountType;
-use AppBundle\View\View;
+use Doctrine\Common\Persistence\ObjectManager;
+use Manuel\Http\Response\Redirect;
+use Manuel\Http\Response\View;
 use Manuel\LocalBank\Account\Account;
 use Manuel\LocalBank\Application\Service\CreateAccount\CreateAccountService;
 use Manuel\LocalBank\Application\Service\EditAccount\EditAccountRequest;
@@ -26,44 +28,59 @@ use Symfony\Component\HttpFoundation\Request;
 class AccountController extends Controller
 {
     /**
-     * @Route("/create")
+     * @Route("/create", name="account_create")
      */
-    public function createAction(Request $request)
-    {
-        $form = $this->createForm(CreateAccountType::class);
+    public function createAction(
+        Request $request,
+        FormFactoryInterface $formFactory,
+        CreateAccountService $createAccountService,
+        ObjectManager $manager
+    ) {
+        $form = $formFactory->create(CreateAccountType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() and $form->isValid()) {
-            $this->get(CreateAccountService::class)->create($form->getData());
+            $id = $createAccountService->create($form->getData());
 
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
+            $manager->flush();
+
+            return Redirect::to('account_edit', [
+                'id' => $id->getId(),
+            ]);
         }
 
-        return $this->render('account/create.html.twig', [
+        return View::make('account/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/edit/{id}")
+     * @Route("/edit/{id}", name="account_edit")
      */
-    public function editAction(Request $request, Account $account)
-    {
+    public function editAction(
+        Request $request,
+        Account $account,
+        FormFactoryInterface $formFactory,
+        EditAccountService $editAccountService,
+        ObjectManager $manager
+    ) {
         $accountDTO = EditAccountRequest::createFromAccount($account);
-        $form = $this->createForm(EditAccountType::class, $accountDTO);
+        $form = $formFactory->createForm(EditAccountType::class, $accountDTO);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() and $form->isValid()) {
-            $this->get(EditAccountService::class)->edit(
+            $id = $editAccountService->edit(
                 $account->getAccountId(), $accountDTO
             );
 
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
+            $manager->flush();
+
+            return Redirect::to('account_edit', [
+                'id' => $id->getId(),
+            ]);
         }
 
-        return $this->render('account/create.html.twig', [
+        return View::make('account/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }

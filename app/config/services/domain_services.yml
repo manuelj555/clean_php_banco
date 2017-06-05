@@ -1,13 +1,17 @@
 services:
-    Manuel\LocalBank\Account\Service\TransferMoney:
-        public: false
+    _defaults:
         autowire: true
-        class: Manuel\LocalBank\Account\Service\TransferMoney
+        autoconfigure: true
+
+    Manuel\LocalBank\Account\Service\:
+        resource: '../../../src/Manuel/LocalBank/Account/Service/'
+
+    Manuel\LocalBank\Application\Service\:
+        resource: '../../../src/Manuel/LocalBank/Application/Service/*/*Service'
+        public: true
 
     Manuel\LocalBank\Application\Service\CreateAccount\CreateAccountService:
-        autowire: true
-        class: Manuel\LocalBank\Application\Service\CreateAccount\CreateAccountService
+        public: true
 
     Manuel\LocalBank\Application\Service\EditAccount\EditAccountService:
-        autowire: true
-        class: Manuel\LocalBank\Application\Service\EditAccount\EditAccountService
+        public: true

@@ -1,20 +1,21 @@
 services:
-    app.repository.abstract:
+#    _defaults:
+#        autowire: true
+#        public: false
+#        autoconfigure: true
+
+    Doctrine\ORM\EntityRepository:
         abstract: true
-        public: false
         factory: ["@doctrine.orm.entity_manager", "getRepository"]
 
-    app.repository.account:
-        class: AppBundle\Repository\AccountRepository
-        parent: app.repository.abstract
+    AppBundle\Repository\AccountRepository:
         arguments: [Manuel\LocalBank\Account\Account]
+        parent: Doctrine\ORM\EntityRepository
 
-    app.repository.client:
-        class: AppBundle\Repository\ClientRepository
-        parent: app.repository.abstract
+    AppBundle\Repository\ClientRepository:
         arguments: [Manuel\LocalBank\Account\Client\Client]
+        parent: Doctrine\ORM\EntityRepository
 
-    app.repository.transaction:
-        class: AppBundle\Repository\TransactionRepository
-        parent: app.repository.abstract
+    AppBundle\Repository\TransactionRepository:
         arguments: [Manuel\LocalBank\Account\Operation\Transaction]
+        parent: Doctrine\ORM\EntityRepository
