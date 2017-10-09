@@ -7,12 +7,16 @@
 namespace Manuel\LocalBank\Application\Service\EditAccount;
 
 use Manuel\LocalBank\Account\Account;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @author maguirre <maguirre@developerplace.com>
  */
 class EditAccountRequest
 {
+    /**
+     * @Assert\Email()
+     */
     public $email;
     public $address;
     public $locked;
@@ -35,7 +39,7 @@ class EditAccountRequest
     {
         return new static(
             $account->getClient()->getEmail()->getEmail(),
-            null, //$account->getClient()->getAddress(),
+            $account->getClient()->getAddress(),
             $account->isLocked()
         );
     }

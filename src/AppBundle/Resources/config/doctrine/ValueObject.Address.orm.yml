@@ -1,2 +1,5 @@
 Manuel\LocalBank\ValueObject\Address:
     type: embeddable
+    fields:
+        address:
+            type: string

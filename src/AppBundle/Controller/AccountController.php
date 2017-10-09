@@ -65,7 +65,7 @@ class AccountController extends Controller
         ObjectManager $manager
     ) {
         $accountDTO = EditAccountRequest::createFromAccount($account);
-        $form = $formFactory->createForm(EditAccountType::class, $accountDTO);
+        $form = $formFactory->create(EditAccountType::class, $accountDTO);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() and $form->isValid()) {
