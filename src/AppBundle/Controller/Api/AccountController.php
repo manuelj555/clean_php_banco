@@ -6,7 +6,9 @@
 
 namespace AppBundle\Controller\Api;
 
+use Manuel\LocalBank\Account\Account;
 use Manuel\LocalBank\Account\AccountRepository;
+use Manuel\LocalBank\ValueObject\EntityId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -27,5 +29,20 @@ class AccountController extends Controller
         $accounts = $accountRepository->findAll();
 
         return $this->json($accounts);
+    }
+
+    /**
+     * @Route("/{id}")
+     * @Method("get")
+     */
+    public function getOne(AccountRepository $accountRepository, $id)
+    {
+        $account = $accountRepository->findById(new EntityId($id));
+
+        if (!$account) {
+            throw $this->createNotFoundException("No se encontró la cuenta con id '".$id."''");
+        }
+
+        return $this->json($account);
     }
 }
