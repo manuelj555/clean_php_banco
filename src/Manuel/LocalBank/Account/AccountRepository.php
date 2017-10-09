@@ -18,6 +18,7 @@ interface AccountRepository
      * @return Account|null
      */
     public function findById(EntityId $accountId);
+    public function findAll();
     public function add(Account $account);
     public function save(Account $account);
 }

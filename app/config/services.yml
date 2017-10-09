@@ -7,6 +7,10 @@ services:
         public: false
         autoconfigure: true
 
+    _instanceof:
+        Symfony\Component\Serializer\Normalizer\NormalizerInterface:
+            tags: ["serializer.normalizer"]
+
     AppBundle\Event\SymfonyEventHandler: ~
 
     Manuel\LocalBank\Event\EventHandler: '@AppBundle\Event\SymfonyEventHandler'
