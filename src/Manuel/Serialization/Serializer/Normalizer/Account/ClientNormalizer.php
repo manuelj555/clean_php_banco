@@ -4,7 +4,7 @@
  * Date: 9/10/2017
  */
 
-namespace AppBundle\Serializer\Normalizer;
+namespace Manuel\Serialization\Serializer\Normalizer\Account;
 
 use Manuel\LocalBank\Account\Client\Client;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -23,11 +23,17 @@ class ClientNormalizer implements NormalizerInterface
      */
     public function normalize($client, $format = null, array $context = array())
     {
-        return [
+        $data = [
             'id' => $client->getId()->getId(),
             'email' => $client->getEmail()->getEmail(),
             'address' => $client->getAddress()->getAddress(),
         ];
+
+        if (isset($context['inherit']) and $context['inherit']){
+            unset($data['id']);
+        }
+
+        return $data;
     }
 
     public function supportsNormalization($data, $format = null)

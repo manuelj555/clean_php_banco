@@ -4,7 +4,7 @@
  * Date: 9/10/2017
  */
 
-namespace AppBundle\Serializer\Normalizer;
+namespace Manuel\Serialization\Serializer\Normalizer\Account;
 
 use Manuel\LocalBank\Account\Account;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -30,7 +30,7 @@ class AccountNormalizer implements NormalizerInterface, SerializerAwareInterface
     {
         return [
             'id' => $account->getAccountId()->getId(),
-            'client' => $this->serializer->normalize($account->getClient(), $format, $context),
+            'client' => $this->serializer->normalize($account->getClient(), $format, ['inherit' => true]),
             'balance' => [
                 'amount' => $account->getBalance()->getAmount(),
                 'currency' => $account->getBalance()->getCurrency()->getType(),

@@ -10,6 +10,8 @@ services:
     _instanceof:
         Symfony\Component\Serializer\Normalizer\NormalizerInterface:
             tags: ["serializer.normalizer"]
+        Symfony\Component\Serializer\Normalizer\DenormalizerInterface:
+            tags: ["serializer.normalizer"]
 
     AppBundle\Event\SymfonyEventHandler: ~
 

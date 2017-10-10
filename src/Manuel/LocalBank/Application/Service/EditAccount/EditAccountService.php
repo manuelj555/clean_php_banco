@@ -65,6 +65,12 @@ class EditAccountService
         $client->setEmail(new Email($request->email));
         $client->setAddress(new Address($request->address));
 
+        if (true === $request->locked) {
+            $account->lockAccount();
+        } elseif (false === $request->locked) {
+            $account->unlockAccount();
+        }
+
         $this->clientRepository->save($client);
         $this->accountRepository->save($account);
 

@@ -3,8 +3,17 @@ services:
         autowire: true
         autoconfigure: true
 
+    _instanceof:
+        Symfony\Component\Serializer\Normalizer\NormalizerInterface:
+            tags: ["serializer.normalizer"]
+        Symfony\Component\Serializer\Normalizer\DenormalizerInterface:
+            tags: ["serializer.normalizer"]
+
     Manuel\LocalBank\Account\Service\:
         resource: '../../../src/Manuel/LocalBank/Account/Service/'
+
+    Manuel\Serialization\:
+        resource: '../../../src/Manuel/Serialization/'
 
     Manuel\LocalBank\Application\Service\:
         resource: '../../../src/Manuel/LocalBank/Application/Service/*/*Service'
@@ -15,3 +24,4 @@ services:
 
     Manuel\LocalBank\Application\Service\EditAccount\EditAccountService:
         public: true
+
