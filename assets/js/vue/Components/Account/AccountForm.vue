@@ -1,46 +1,56 @@
 <template>
     <div>
-        <div class="row">
-            <form action="#" @submit.prevent="submitForm">
-                <div class="form-group">
-                    <label>Account Number</label>
-                    <input type="text" :value="account.id" readonly class="form-control">
-                </div>
+        <form action="#" @submit.prevent="submitForm">
+            <div class="form-group">
+                <label>Account Number</label>
+                <input type="text" :value="account.id" readonly class="form-control">
+            </div>
 
-                <div class="form-group">
-                    <label>Account Balance</label>
-                    <div class="input-group">
-                        <span class="input-group-addon">{{ account.balance.currency }}</span>
-                        <input type="text" :readonly="!isNew" v-model="account.balance.amount" class="form-control">
-                    </div>
+            <div class="form-group">
+                <label>Account Balance</label>
+                <div class="input-group" :class="{'is-invalid': errors.has('balance')}">
+                    <span class="input-group-addon">{{ account.balance.currency }}</span>
+                    <input type="text" name="balance" :readonly="!isNew" v-model="account.balance.amount"
+                           class="form-control" v-validate="'required|decimal'">
                 </div>
+                <form-errors :errors="errors.collect('balance')"/>
+            </div>
 
-                <div class="form-group">
-                    <label>Client Email</label>
-                    <input type="email" v-model="account.client.email" class="form-control">
-                </div>
+            <div class="form-group">
+                <label>Client Email</label>
+                <input type="email" name="email" v-model="account.client.email" class="form-control"
+                       v-validate="'required|email'">
+                <form-errors :errors="errors.collect('email')"/>
+            </div>
 
-                <div class="form-group">
-                    <label>Client Address</label>
-                    <textarea v-model="account.client.address" class="form-control"></textarea>
-                </div>
-                <!--{{ account }}-->
+            <div class="form-group">
+                <label>Client Address</label>
+                <textarea name="address" v-model="account.client.address" class="form-control"
+                          v-validate="'required'"></textarea>
+                <form-errors :errors="errors.collect('address')"/>
+            </div>
+            <!--{{ account }}-->
 
-                <div class="form-actions text-right">
-                    <input type="submit" value="Save" class="btn btn-success"/>
-                    <router-link class="btn btn-default" :to="{ name: 'account_list' }">Cancel</router-link>
-                </div>
-            </form>
-        </div>
+            <div class="form-actions text-right">
+                <input type="submit" value="Save" class="btn btn-success"/>
+                <router-link class="btn btn-dark" :to="{ name: 'account_list' }">Cancel</router-link>
+            </div>
+        </form>
     </div>
 </template>
 
 <script>
+    import FormErrors from '../FormErrors.vue';
+
     export default {
         data () {
             return {
                 account: this.getEmptyAccount(),
             }
+        },
+
+        components: {
+            FormErrors,
         },
 
         computed: {
@@ -81,26 +91,32 @@
                         address: null,
                     },
                     balance: {
-                        currency: null,
+                        currency: 'Bs',
                         amount: null,
                     },
                 };
             },
 
             save(account) {
-                if (this.isNew) {
-                    return this.resource.save({}, account).then(response => {
-                        alert('Done!');
+                return this.$validator.validateAll().then((result) => {
+                    if (!result) {
+                        return;
+                    }
 
-                        return response.body;
-                    });
-                } else {
-                    return this.resource.update({id: account.id}, account).then(response => {
-                        alert('Done!');
+                    if (this.isNew) {
+                        return this.resource.save({}, account).then(response => {
+                            alert('Done!');
 
-                        return response.body;
-                    });
-                }
+                            return response.body;
+                        });
+                    } else {
+                        return this.resource.update({id: account.id}, account).then(response => {
+                            alert('Done!');
+
+                            return response.body;
+                        });
+                    }
+                });
             }
 
         },
