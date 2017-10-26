@@ -16,6 +16,7 @@ Vue.use(VeeValidate, {
 		pristine: 'pristine', // control has not been interacted with
 		dirty: 'dirty' // control has been interacted with
 	},
+    errorBagName: '_errors',
 });
 
 Vue.http.options.root = $('#app').data('apiBaseUrl');

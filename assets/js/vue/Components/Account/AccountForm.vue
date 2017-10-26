@@ -1,42 +1,44 @@
 <template>
-    <div>
-        <form action="#" @submit.prevent="submitForm">
-            <div class="form-group">
-                <label>Account Number</label>
-                <input type="text" :value="account.id" readonly class="form-control">
-            </div>
-
-            <div class="form-group">
-                <label>Account Balance</label>
-                <div class="input-group" :class="{'is-invalid': errors.has('balance')}">
-                    <span class="input-group-addon">{{ account.balance.currency }}</span>
-                    <input type="text" name="balance" :readonly="!isNew" v-model="account.balance.amount"
-                           class="form-control" v-validate="'required|decimal'">
+    <!--<transition name="slide-fade">-->
+        <div>
+            <form action="#" @submit.prevent="submitForm">
+                <div class="form-group">
+                    <label>Account Number</label>
+                    <input type="text" :value="account.id" readonly class="form-control">
                 </div>
-                <form-errors :errors="errors.collect('balance')"/>
-            </div>
 
-            <div class="form-group">
-                <label>Client Email</label>
-                <input type="email" name="email" v-model="account.client.email" class="form-control"
-                       v-validate="'required|email'">
-                <form-errors :errors="errors.collect('email')"/>
-            </div>
+                <div class="form-group">
+                    <label>Account Balance</label>
+                    <div class="input-group" :class="{'is-invalid': _errors.has('balance')}">
+                        <span class="input-group-addon">{{ account.balance.currency }}</span>
+                        <input type="text" name="balance" :readonly="!isNew" v-model="account.balance.amount"
+                               class="form-control" v-validate="'required|decimal'">
+                    </div>
+                    <form-errors :errors="_errors.collect('balance')"/>
+                </div>
 
-            <div class="form-group">
-                <label>Client Address</label>
-                <textarea name="address" v-model="account.client.address" class="form-control"
-                          v-validate="'required'"></textarea>
-                <form-errors :errors="errors.collect('address')"/>
-            </div>
-            <!--{{ account }}-->
+                <div class="form-group">
+                    <label>Client Email</label>
+                    <input type="email" name="email" v-model="account.client.email" class="form-control"
+                           v-validate="'required|email'">
+                    <form-errors :errors="_errors.collect('email')"/>
+                </div>
 
-            <div class="form-actions text-right">
-                <input type="submit" value="Save" class="btn btn-success"/>
-                <router-link class="btn btn-dark" :to="{ name: 'account_list' }">Cancel</router-link>
-            </div>
-        </form>
-    </div>
+                <div class="form-group">
+                    <label>Client Address</label>
+                    <textarea name="address" v-model="account.client.address" class="form-control"
+                              v-validate="'required'"></textarea>
+                    <form-errors :errors="_errors.collect('address')"/>
+                </div>
+                <!--{{ account }}-->
+
+                <div class="form-actions text-right">
+                    <input type="submit" value="Save" class="btn btn-success"/>
+                    <router-link class="btn btn-dark" :to="{ name: 'account_list' }">Cancel</router-link>
+                </div>
+            </form>
+        </div>
+    <!--</transition>-->
 </template>
 
 <script>

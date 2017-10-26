@@ -2,8 +2,6 @@
 
 {% block body %}
     {% verbatim %}
-
-
 <div>
     <h1>Hello App!</h1>
 
@@ -13,7 +11,9 @@
       </li>
     </ul>
 
-    <router-view></router-view>
+    <transition name="slide-fade" mode="out-in">
+        <router-view></router-view>
+    </transition>
 </div>
 
     {% endverbatim %}
